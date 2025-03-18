@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import MediaImg from "../media/MediaImg";
+import Slider from "react-slick";
 
 const YachtSingle = () => {
   const { id } = useParams();
@@ -13,16 +15,52 @@ const YachtSingle = () => {
 
   if (!post) return <p>Loading...</p>;
 
+  var heroSlider = {
+    dots: true,
+    arrows: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplayspeed: 3000   
+};
+
 
   return (
     <div className="single-post container">
       <div className="row">
         <div className="col-md-10 m-auto">
           <h1 dangerouslySetInnerHTML={{ __html: post.title.rendered }} />
+
+          <Slider {...heroSlider}>
+            <MediaImg id={post.acf.main_photo} size="full" />
+            <MediaImg id={post.acf.Exterior_photo} size="full" />
+            <MediaImg id={post.acf.cockpit} size="full" />
+            <MediaImg id={post.acf.master_cabin} size="full" />
+            <MediaImg id={post.acf.life_style} size="full" />
+          </Slider>
+
+          <div className="row">
+            <div className="col-md-3 col-6">
+              <svg xmlns="http://www.w3.org/2000/svg" width="44" fill="white" viewBox="0 0 512 512"><path d="M177.9 494.1c-18.7 18.7-49.1 18.7-67.9 0L17.9 401.9c-18.7-18.7-18.7-49.1 0-67.9l50.7-50.7 48 48c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6l-48-48 41.4-41.4 48 48c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6l-48-48 41.4-41.4 48 48c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6l-48-48 41.4-41.4 48 48c6.2 6.2 16.4 6.2 22.6 0s6.2-16.4 0-22.6l-48-48 50.7-50.7c18.7-18.7 49.1-18.7 67.9 0l92.1 92.1c18.7 18.7 18.7 49.1 0 67.9L177.9 494.1z"/></svg>
+              <p>
+                {post.acf.lenght}
+              </p>
+            </div>
+            <div className="col-md-3 col-6">
+              <strong>Length:</strong> {post.acf.lenght}
+            </div>
+            <div className="col-md-3 col-6">
+              <strong>Length:</strong> {post.acf.lenght}
+            </div>
+            <div className="col-md-3 col-6">
+              <strong>Length:</strong> {post.acf.lenght}
+            </div>
+          </div>
           
           <div dangerouslySetInnerHTML={{ __html: post.content.rendered }} />
 
-          {post.acf && (
             <div className="row mt-4">
               <div className="col-md-6">
                 <div className="card p-3">
@@ -56,7 +94,6 @@ const YachtSingle = () => {
                 </div>
               </div>
             </div>
-          )}
 
         </div>
       </div>
